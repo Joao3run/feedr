@@ -2,7 +2,7 @@ package br.com.brn.feedrapi.application.domain;
 
 import java.util.Date;
 
-public class FeedrUser {
+public class User {
 	long id;
 	String fullName;
 	String firstName;
@@ -13,11 +13,12 @@ public class FeedrUser {
 	String password;
 	Date creatAt;
 	Date updateAt;
+	String clientSchema;
 
-	public FeedrUser() {
+	public User() {
 	}
 
-	public FeedrUser(long id, String fullName, String firstName, String lastName, String gender, String email, String username, String password) {
+	public User(long id, String fullName, String firstName, String lastName, String gender, String email, String username, String password, Date creatAt, Date updateAt, String clientSchema) {
 		this.id = id;
 		this.fullName = fullName;
 		this.firstName = firstName;
@@ -26,6 +27,9 @@ public class FeedrUser {
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.creatAt = creatAt;
+		this.updateAt = updateAt;
+		this.clientSchema = clientSchema;
 	}
 
 	public long getId() {
@@ -106,6 +110,18 @@ public class FeedrUser {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getClientSchema() {
+		return clientSchema;
+	}
+
+	public void setClientSchema(String clientSchema) {
+		this.clientSchema = clientSchema;
+	}
+
+	public boolean isNew() {
+		return this.id <= 0;
 	}
 }
 

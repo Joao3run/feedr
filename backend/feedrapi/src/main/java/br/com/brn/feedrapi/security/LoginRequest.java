@@ -19,7 +19,7 @@ public class LoginRequest {
             String loginData = requestData;
             String[] loginPart = loginData.split("&");
             String[] userPart = loginPart[0].split("%40");
-            this.user = userPart[0].replace("login=", "");
+            this.user = userPart[0].replace("user=", "");
             this.password = loginPart[1].replace("password=", "");
             ;
         }

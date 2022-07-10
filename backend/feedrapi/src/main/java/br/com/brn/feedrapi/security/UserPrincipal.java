@@ -1,6 +1,6 @@
 package br.com.brn.feedrapi.security;
 
-import br.com.brn.feedrapi.application.domain.FeedrUser;
+import br.com.brn.feedrapi.application.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,13 +8,13 @@ import java.util.Collection;
 
 public class UserPrincipal implements UserDetails {
 
-    private FeedrUser user;
+    private User user;
 
-    public UserPrincipal(FeedrUser user) {
+    public UserPrincipal(User user) {
         this.user = user;
     }
 
-    public FeedrUser getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -35,21 +35,21 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

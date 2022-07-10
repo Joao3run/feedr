@@ -1,31 +1,33 @@
 package br.com.brn.feedrapi.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+	@Value("${secret-token}")
+	private String secret;
 
 	private final AuthenticationManager authenticationManager;
 
@@ -40,26 +42,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			if (!request.getMethod().equals(HttpMethod.OPTIONS.toString())) {
-				response.setHeader("Access-Control-Allow-Origin", "*");
-				LoginRequest loginRequest = new LoginRequest(request);
-				if (loginRequest.hasLoginData()) {
-					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-							loginRequest.getUser(), loginRequest.getPassword());
-					return authenticationManager.authenticate(authenticationToken);
-				} else {
-					System.out.println("Invalid Credentials");
-					throw new BadCredentialsException("Invalid Credentials");
-				}
-			}
-
-		} catch (BadCredentialsException e) {
-			logger.warn("Invalid Credentials");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		LoginRequest loginRequest = new LoginRequest(request);
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				loginRequest.getUser(), loginRequest.getPassword());
+		return authenticationManager.authenticate(authenticationToken);
 	}
 
 	@Override
@@ -86,5 +73,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+		response.getWriter().print("Invalid Credentials");
+		response.getWriter().flush();
 	}
 }
