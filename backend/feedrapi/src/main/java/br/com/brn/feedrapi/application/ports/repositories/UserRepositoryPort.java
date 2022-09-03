@@ -1,7 +1,7 @@
 package br.com.brn.feedrapi.application.ports.repositories;
 
 
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
 
 import java.util.List;
 

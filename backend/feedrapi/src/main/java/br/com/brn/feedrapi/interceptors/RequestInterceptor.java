@@ -1,9 +1,8 @@
 package br.com.brn.feedrapi.interceptors;
 
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
 import br.com.brn.feedrapi.hibernate.Tenant;
 import br.com.brn.feedrapi.security.SecurityConstants;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package br.com.brn.feedrapi.application.services;
 
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
 import br.com.brn.feedrapi.application.ports.repositories.UserRepositoryPort;
 import br.com.brn.feedrapi.application.ports.services.UserServicePort;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,8 +1,7 @@
 package br.com.brn.feedrapi.security;
 
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
 import br.com.brn.feedrapi.application.ports.services.UserServicePort;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException(username);
         }
-       return new UserPrincipal(user);
+        return new UserPrincipal(user);
     }
 }

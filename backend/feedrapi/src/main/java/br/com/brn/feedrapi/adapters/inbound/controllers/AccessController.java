@@ -1,17 +1,15 @@
-package br.com.brn.feedrapi.adapters.inbound;
+package br.com.brn.feedrapi.adapters.inbound.controllers;
 
 
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 public class AccessController {
 
-    public static String getClientSchoolSchema() {
+    public static String getClientSchema() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ObjectMapper objectMapper = new ObjectMapper();
         User user;

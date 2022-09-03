@@ -1,14 +1,13 @@
 package br.com.brn.feedrapi.adapters.outbounds.persistence.user;
 
 import br.com.brn.feedrapi.adapters.outbounds.persistence.entities.UserEntity;
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
 import br.com.brn.feedrapi.application.ports.repositories.UserRepositoryPort;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

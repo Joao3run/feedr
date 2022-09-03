@@ -1,8 +1,4 @@
-package br.com.brn.feedrapi.application.domain;
-
-
-import java.util.ArrayList;
-
+package br.com.brn.feedrapi.application.domain.models;
 
 public class AccessData {
 

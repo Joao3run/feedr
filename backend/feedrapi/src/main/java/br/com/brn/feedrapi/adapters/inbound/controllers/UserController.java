@@ -1,10 +1,9 @@
-package br.com.brn.feedrapi.adapters.inbound;
+package br.com.brn.feedrapi.adapters.inbound.controllers;
 
-import br.com.brn.feedrapi.application.domain.User;
+import br.com.brn.feedrapi.application.domain.models.User;
 import br.com.brn.feedrapi.application.ports.services.UserServicePort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +13,9 @@ import java.util.List;
 public class UserController {
 
     private final UserServicePort userService;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserServicePort userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserServicePort userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
