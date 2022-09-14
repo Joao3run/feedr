@@ -3,6 +3,7 @@ package br.com.brn.feedrapi.adapters.inbound.controllers;
 import br.com.brn.feedrapi.adapters.inbound.dtos.ConsumerDTO;
 import br.com.brn.feedrapi.application.domain.filters.ConsumerFilter;
 import br.com.brn.feedrapi.application.domain.models.Consumer;
+import br.com.brn.feedrapi.application.exception.DuplicateUserException;
 import br.com.brn.feedrapi.application.ports.services.ConsumerServicePort;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -35,14 +36,19 @@ public class ConsumerController {
             return new ResponseEntity<>(consumer, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 
     @PostMapping
-    public Consumer save(@RequestBody @Valid ConsumerDTO consumerDTO) {
-        Consumer consumer = new Consumer();
-        BeanUtils.copyProperties(consumerDTO, consumer);
-        return consumerService.save(consumer);
+    public ResponseEntity<?> save(@RequestBody @Valid ConsumerDTO consumerDTO) {
+        try {
+            Consumer consumer = new Consumer();
+            BeanUtils.copyProperties(consumerDTO, consumer);
+            consumer = consumerService.save(consumer);
+            return new ResponseEntity<>(consumer, HttpStatus.OK);
+        } catch (DuplicateUserException duplicateUserException) {
+            return new ResponseEntity<>(duplicateUserException.getMessage(), HttpStatus.BAD_REQUEST);
+
+        }
     }
 
 }

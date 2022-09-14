@@ -1,27 +1,40 @@
 package br.com.brn.feedrapi.application.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
+
 public class User {
-    long id;
-    String fullName;
-    String firstName;
-    String lastName;
-    String gender;
-    String email;
-    String username;
+    private long id;
+
+    private String fullName;
+
+    private String gender;
+
+    private String email;
+
+    private String username;
+
+    private Date birthDate;
+
+    private Boolean active;
+
+    @JsonIgnore
     String password;
+
+    @JsonIgnore
     Date creatAt;
+
+    @JsonIgnore
     Date updateAt;
     String clientSchema;
 
     public User() {
     }
 
-    public User(long id, String fullName, String firstName, String lastName, String gender, String email, String username, String password, Date creatAt, Date updateAt, String clientSchema) {
+    public User(long id, String fullName, String gender, String email, String username, String password, Date creatAt, Date updateAt, String clientSchema) {
         this.id = id;
         this.fullName = fullName;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.gender = gender;
         this.email = email;
         this.username = username;
@@ -45,22 +58,6 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getGender() {
@@ -121,6 +118,22 @@ public class User {
 
     public boolean isNew() {
         return this.id <= 0;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
 

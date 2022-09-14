@@ -1,5 +1,7 @@
 package br.com.brn.feedrapi.adapters.outbounds.persistence.entities;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,12 +19,6 @@ public class UserEntity implements Serializable {
 
     @Column(name = "NOMEUSUA")
     String fullName;
-
-    @Column(name = "FINAUSUA")
-    String firstName;
-
-    @Column(name = "LANAUSUA")
-    String lastName;
 
     @Column(name = "GENEUSUA")
     String gender;
@@ -44,6 +40,13 @@ public class UserEntity implements Serializable {
     @Column(name = "DTATUSUA")
     Date updateAt;
 
+    @Column(name = "DTNCUSUA")
+    private Date birthDate;
+
+    @Type(type = "numeric_boolean")
+    @Column(name = "ATIVUSUA")
+    private Boolean active;
+
     @Column(name = "BASEUSUA")
     String clientSchema;
 
@@ -61,22 +64,6 @@ public class UserEntity implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getGender() {
@@ -133,5 +120,21 @@ public class UserEntity implements Serializable {
 
     public void setClientSchema(String clientSchema) {
         this.clientSchema = clientSchema;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

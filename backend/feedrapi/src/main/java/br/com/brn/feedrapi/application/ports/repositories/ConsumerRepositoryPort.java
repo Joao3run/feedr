@@ -12,4 +12,6 @@ public interface ConsumerRepositoryPort {
     Consumer findById(Long id);
 
     Consumer save(Consumer consumer);
+
+    Consumer findByEmail(String email);
 }

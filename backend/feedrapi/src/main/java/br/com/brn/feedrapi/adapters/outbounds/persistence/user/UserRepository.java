@@ -48,4 +48,16 @@ public class UserRepository implements UserRepositoryPort {
         userEntity = dataUserRepository.save(userEntity);
         return modelMapper.map(userEntity, User.class);
     }
+
+    @Override
+    public User findById(Long id) {
+        Optional<UserEntity> userEntity = dataUserRepository.findById(id);
+        return modelMapper.map(userEntity, User.class);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        Optional<UserEntity> userEntity = dataUserRepository.findByEmail(email);
+        return modelMapper.map(userEntity, User.class);
+    }
 }

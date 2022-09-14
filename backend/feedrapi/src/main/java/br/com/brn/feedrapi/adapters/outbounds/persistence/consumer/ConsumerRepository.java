@@ -49,4 +49,10 @@ public class ConsumerRepository implements ConsumerRepositoryPort {
         consumerEntity = dataConsumerRepository.save(consumerEntity);
         return modelMapper.map(consumerEntity, Consumer.class);
     }
+
+    @Override
+    public Consumer findByEmail(String email) {
+        Optional<ConsumerEntity> consumerEntity = dataConsumerRepository.findByEmail(email);
+        return modelMapper.map(consumerEntity, Consumer.class);
+    }
 }

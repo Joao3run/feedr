@@ -1,14 +1,11 @@
 package br.com.brn.feedrapi.adapters.outbounds.persistence.communication;
 
 import br.com.brn.feedrapi.adapters.outbounds.persistence.entities.CommunicationEntity;
-import br.com.brn.feedrapi.adapters.outbounds.persistence.entities.ConsumerEntity;
 import br.com.brn.feedrapi.application.domain.filters.CommunicationFilter;
 import br.com.brn.feedrapi.application.domain.models.Communication;
-import br.com.brn.feedrapi.application.domain.models.Consumer;
 import br.com.brn.feedrapi.application.ports.repositories.CommunicationRepositoryPort;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,10 +22,10 @@ public class CommunicationRepository implements CommunicationRepositoryPort {
 
     private final ModelMapper modelMapper;
 
-    public CommunicationRepository(SpringDataCommunicationRepository dataCommunicationRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, JPACommunicationRepository jpaCommunicationRepository, ModelMapper modelMapper1) {
+    public CommunicationRepository(SpringDataCommunicationRepository dataCommunicationRepository, JPACommunicationRepository jpaCommunicationRepository, ModelMapper modelMapper) {
         this.dataCommunicationRepository = dataCommunicationRepository;
         this.jpaCommunicationRepository = jpaCommunicationRepository;
-        this.modelMapper = modelMapper1;
+        this.modelMapper = modelMapper;
     }
 
     @Override
