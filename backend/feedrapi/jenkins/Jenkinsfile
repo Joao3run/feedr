@@ -1,31 +1,35 @@
 #!/usr/bin/env groovy
-
+// pipeline docker image maven
 pipeline {
-    agent none
+    agent {
+        docker {
+            image 'maven:3.6.3-jdk-8'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'maven:3.6.3-jdk-8'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
             steps {
-                sh 'mvn clean install'
-            }
-            steps {
-                echo 'Building...'
+                sh 'mvn clean package'
             }
         }
+    }
+
+    stages {
         stage('Test') {
             steps {
-                echo 'Testing...'
+                echo 'test...'
             }
         }
+    }
+
+    stages {
         stage('Deploy') {
             steps {
-                echo 'Deploying...'
+                echo 'Deploy...'
             }
         }
     }
 }
+
+
